@@ -1,2 +1,20 @@
 for: troubleshooting Terminal: export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+URL: /
+Timestamp: Thu Aug 26 2021 09:04:13 GMT+0200 (Central European Summer Time)
+
+URL: /favicon.ico
+Timestamp: Thu Aug 26 2021 09:04:13 GMT+0200 (Central European Summer Time)
+
+URL: /
+Timestamp: Thu Aug 26 2021 09:04:20 GMT+0200 (Central European Summer Time)
+
+URL: /favicon.ico
+Timestamp: Thu Aug 26 2021 09:04:20 GMT+0200 (Central European Summer Time)
+
+URL: /
+Timestamp: Thu Aug 26 2021 10:51:15 GMT+0200 (Central European Summer Time)
+
+URL: /favicon.ico
+Timestamp: Thu Aug 26 2021 10:51:16 GMT+0200 (Central European Summer Time)
+
