@@ -80,7 +80,7 @@ let topTenMovies = [
 
 // Returning my top ten movies
 app.get('/movies', (req, res) => {
-  res.json(topTenMovies);
+  res.send('Successful GET request returning data on all the movies');
 });
 
 // Returning a welcoming message
