@@ -97,6 +97,7 @@ let movies = [
       gname: 'Western',
       description: 'Western films as those set in the American West that embody the spirit, the struggle, and the demise of the new frontier'
     },
+<<<<<<< HEAD
     director: {
       name: 'Sergio Leone',
       bio: ' An Italian film director, producer and screenwriter, credited as the creator of the Spaghetti Western genre',
@@ -141,6 +142,20 @@ let users = [
     birthday: '1985-07-27'
   }
 ];
+=======
+    {
+      id: 10,
+      id: '10',
+      title: 'Equalizer',
+      year: '2014'
+    }
+  ]
+
+// Returning my top ten movies
+app.get('/movies', (req, res) => {
+  res.send('Successful GET request returning data on all the movies');
+});
+>>>>>>> 971b98e0a00f70b6d3de696ab8b105b01c1f109f
 
 app.get('/', (req, res) => {
 
