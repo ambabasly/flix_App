@@ -18,3 +18,63 @@ Timestamp: Thu Aug 26 2021 10:51:15 GMT+0200 (Central European Summer Time)
 URL: /favicon.ico
 Timestamp: Thu Aug 26 2021 10:51:16 GMT+0200 (Central European Summer Time)
 
+
+
+// To add movie 
+INSERT INTO Movies(Title, Description, GenreID, DirectorID,ImageUrl,Featured) VALUES('The Shawshank Redemption','A category of narrative fiction (or semi-fiction) intended to be more serious than humorous in tone.','3','3','https://images-na.ssl-images-amazon.com/images/I/519NBNHX5BL._SY445_.jpg',True);
+INSERT INTO Movies(Title, Description, GenreID, DirectorID,ImageUrl,Featured) VALUES('The Godfather','A film genre inspired by and analogous to the crime fiction literary genre. Films of this genre generally involve various aspects of crime and its detection.','1','2','https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_UY1200_CR107,0,630,1200_AL_.jpg','True');
+INSERT INTO Movies(Title, Description, GenreID, DirectorID,ImageUrl,Featured) VALUES('The Godfather: Part II','A film genre inspired by and analogous to the crime fiction literary genre. Films of this genre generally involve various aspects of crime and its detection.','1','2','https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_UY1200_CR107,0,630,1200_AL_.jpg','True');
+INSERT INTO Movies(Title, Description, GenreID, DirectorID,ImageUrl,Featured) VALUES('Pulp Fiction','Comedy may be divided into multiple genres based on the source of humor, the method of delivery, and the context in which it is delivered.','2','4','https://3kek03dv5mw2mgjkf3tvnm31-wpengine.netdna-ssl.com/wp-content/uploads/2021/05/Pulp_Fiction.jpeg','True');
+INSERT INTO Movies(Title, Description, GenreID, DirectorID,ImageUrl,Featured) VALUES('The Good, the Bad and the Ugly','The Bad and the Ugly, Western films as those set in the American West that embody the spirit, the struggle, and the demise of the new frontier.','4','4','https://i.ytimg.com/vi/gcFH2Y7bdmk/movieposter_en.jpg','True');
+INSERT INTO Movies(Title, Description, GenreID, DirectorID,ImageUrl,Featured) VALUES('Equalizer','The film focuses on a former U.S. Marine turned DIA intelligence officer who reluctantly returns to action to protect a teenage prostitute from members of the Russian mafia.','1','1','https://m.media-amazon.com/images/M/MV5BMTQ2MzE2NTk0NF5BMl5BanBnXkFtZTgwOTM3NTk1MjE@._V1_UX67_CR0,0,67,98_AL_.jpg','True');
+INSERT INTO Movies(Title, Description, GenreID, DirectorID,ImageUrl,Featured) VALUES('Training Day','Two LAPD narcotics officers over a 24-hour period in the gang-ridden neighborhoods of Westlake, Echo Park and South Central Los Angeles.','3','1','https://upload.wikimedia.org/wikipedia/en/b/b3/Training_Day_Poster.jpg','True');
+INSERT INTO Movies(Title, Description, GenreID, DirectorID,ImageUrl,Featured) VALUES('Olympus Has Fallen','Secret Service agent Mike Banning finds himself trapped inside the White House in the wake of a terrorist attack and works with national security to rescue the President from his kidnappers.','4','1','https://upload.wikimedia.org/wikipedia/en/b/bf/Olympus_Has_Fallen_poster.jpg','True');
+INSERT INTO Movies(Title, Description, GenreID, DirectorID,ImageUrl,Featured) VALUES('Inception','The film stars Leonardo DiCaprio as a professional thief who steals information by infiltrating the subconscious of his targets.','3','4','https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_UX67_CR0,0,67,98_AL_.jpg','True');
+INSERT INTO Movies(Title, Description, GenreID, DirectorID,ImageUrl,Featured) VALUES('John Wick','The story focuses on John Wick (Reeves) searching for the men who broke into his home, stole his vintage car and killed his puppy, which was a last gift to him from his recently deceased wife.','4','4','https://static.wikia.nocookie.net/john-wick8561/images/a/a1/John_Wick_Poster_001.jpg/revision/latest/scale-to-width-down/666?cb=20161128160702','True');
+
+
+//To add genre
+INSERT INTO Genres(Name, Description) VALUES('Crime', 'Action film is a film genre in which the protagonist or protagonists are thrust into a series of events that typically include violence, extended fighting, physical feats, rescues and frantic chases.');
+INSERT INTO Genres(Name, Description) VALUES('Comedy', 'Comedy is a genre of film in which the main emphasis is on humor. These films are designed to make the audience laugh through amusement and most often work by exaggerating characteristics for humorous effect.');
+INSERT INTO Genres(Name, Description) VALUES('Drama', 'A category of narrative fiction (or semi-fiction) intended to be more serious than humorous in tone.');
+INSERT INTO Genres(Name, Description) VALUES('Action', 'a film genre in which the protagonist or protagonists are thrust into a series of events.');
+
+//To add directors
+INSERT INTO Directors(Name, Bio, Birthyear, Deathyear) VALUES('Antoine Fuqua', 'Antoine Fuqua is an American filmmaker and comic artist. He was originally known for directing music videos for Toni Braxton, Coolio, Stevie Wonder and Prince including the music video for Gangsta Paradise.', '1966-01-19');
+INSERT INTO Directors(Name, Bio, Birthyear, Deathyear) VALUES('Francis Ford Coppola', 'An American motion-picture director, writer, and producer whose films range from sweeping epics to small-scale character studies. As the director of films such as The Godfather (1972), The Conversation (1974), and Apocalypse Now (1979), he enjoyed his greatest success and influence in the 1970s, when he attempted to create an alternative to the Hollywood system of film production and distribution.', '1939-04-07');
+INSERT INTO Directors(Name, Bio, Birthyear, Deathyear) VALUES('Frank A. Darabont', 'Hungarian-American film director, screenwriter and producer.', '1959-02-28');															  
+
+//To add users
+INSERT INTO users(username, password, email, birth_date)VALUES ('Kenedy2021','wpassword1','peter@gmail.com','2000-01-13’);
+INSERT INTO users(username, password, email, birth_date)VALUES ('Theo2021','password2','theo@gmail.com','2001-04-23’);
+INSERT INTO users(username, password, email, birth_date)VALUES ('Fredrick2021','password3','fredrick@gmail.com’, ‘1998-11-03’);
+
+
+//To add users_movies
+
+INSERT INTO user_movies(userid, movieid)VALUES ('1','2');
+INSERT INTO user_movies(userid, movieid)VALUES ('2','3');
+INSERT INTO user_movies(userid, movieid)VALUES ('3','4');
+*/
+
+
+/*
+//Selecting a single genre from genre table
+SELECT name FROM genres
+WHERE GenreID = 1;
+
+//Selecting all movies that are of the same genre
+SELECT * FROM movies
+WHERE GenreID = 1;
+
+//Update the email of a single user
+UPDATE users
+SET email = 'kenedy@gmail.com'
+WHERE username = 'Kenedy2021';
+
+//Delete a certain movie from the database
+DELETE FROM Movies
+WHERE movieID = 9;
+
+*/
+
