@@ -45,16 +45,16 @@ INSERT INTO Directors(Name, Bio, Birthyear, Deathyear) VALUES('Francis Ford Copp
 INSERT INTO Directors(Name, Bio, Birthyear, Deathyear) VALUES('Frank A. Darabont', 'Hungarian-American film director, screenwriter and producer.', '1959-02-28');															  
 
 //To add users
-INSERT INTO users(username, password, email, birth_date)VALUES ('Kenedy2021','wpassword1','peter@gmail.com','2000-01-13’);
-INSERT INTO users(username, password, email, birth_date)VALUES ('Theo2021','password2','theo@gmail.com','2001-04-23’);
-INSERT INTO users(username, password, email, birth_date)VALUES ('Fredrick2021','password3','fredrick@gmail.com’, ‘1998-11-03’);
+INSERT INTO users(username, password, email, birth_date)VALUES ('Kenedy2021','password1','kenedy@gmail.com','2000-01-13');
+INSERT INTO users(username, password, email, birth_date)VALUES ('Theo2021','password2','theo@gmail.com','2001-04-23');
+INSERT INTO users(username, password, email, birth_date)VALUES ('Fredrick2021','password3','fredrick@gmail.com', '1998-11-03');
 
 
 //To add users_movies
 
-INSERT INTO user_movies(userid, movieid)VALUES ('1','2');
-INSERT INTO user_movies(userid, movieid)VALUES ('2','3');
-INSERT INTO user_movies(userid, movieid)VALUES ('3','4');
+INSERT INTO user_movies(userid, movieid)VALUES ('1','8');
+INSERT INTO user_movies(userid, movieid)VALUES ('2','15');
+INSERT INTO user_movies(userid, movieid)VALUES ('3','17');
 */
 
 
@@ -74,7 +74,7 @@ WHERE username = 'Kenedy2021';
 
 //Delete a certain movie from the database
 DELETE FROM Movies
-WHERE movieID = 9;
+WHERE movieID = 17
 
 */
 
