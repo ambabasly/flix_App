@@ -353,16 +353,6 @@ app.delete('/users/:Name/movies/:MovieID', (req, res) => {
   });
 });
 
-//Error handling
-app.use((err, req, res, next) => {
-  console.log(err.stack);
-  res.status(500).send('Something went wrong!');
-});
-
-app.listen(8081, () => {
-  console.log('Your server is live and listening on port 8081.');
-});
-
 // return data about a genre by name/title
 app.get('/movies/genres/:genre', (req, res) => {
   res.send('Successful GET request returning data on a single genre');
@@ -415,4 +405,14 @@ app.delete('/users/:Username/movies/:MovieID', (req, res) => {
       }
     }
   );
+});
+
+//Error handling
+app.use((err, req, res, next) => {
+  console.log(err.stack);
+  res.status(500).send('Something went wrong!');
+});
+
+app.listen(8080, () => {
+  console.log('Your server is live and listening on port 8080.');
 });
