@@ -19,7 +19,7 @@ URL: /favicon.ico
 Timestamp: Thu Aug 26 2021 10:51:16 GMT+0200 (Central European Summer Time)
 
 
-
+//For postgreSQL
 // To add movie 
 INSERT INTO Movies(Title, Description, GenreID, DirectorID,ImageUrl,Featured) VALUES('The Shawshank Redemption','A category of narrative fiction (or semi-fiction) intended to be more serious than humorous in tone.','3','3','https://images-na.ssl-images-amazon.com/images/I/519NBNHX5BL._SY445_.jpg',True);
 INSERT INTO Movies(Title, Description, GenreID, DirectorID,ImageUrl,Featured) VALUES('The Godfather','A film genre inspired by and analogous to the crime fiction literary genre. Films of this genre generally involve various aspects of crime and its detection.','1','2','https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_UY1200_CR107,0,630,1200_AL_.jpg','True');
@@ -77,4 +77,353 @@ DELETE FROM Movies
 WHERE movieID = 17
 
 */
+
+
+
+//For mongoDB
+// list of movies with genres and directors
+Database name: myFlix_AppDB
+
+let movie1 = {
+"insertedId" : ObjectId("6131e615afdce614530e9107")
+    Title: "The Shawshank Redemption",
+    Description: "A category of narrative fiction (or semi-fiction) intended to be more serious than humorous in tone",
+    Genre: {
+      Name: "Drama",
+      Description: "A category of narrative fiction (or semi-fiction) intended to be more serious than humorous in tone"
+    },
+    Director: {
+      Name: "Frank A. Darabont",
+      Bio: "A Hungarian-American film director, screenwriter and producer",
+      Born: "1959"
+    },
+    ImagePath: "https://images-na.ssl-images-amazon.com/images/I/519NBNHX5BL._SY445_.jpg",
+    Featured: "true"
+  }
+  db.movies.insertOne(movie1)
+
+
+  let movie2 = {
+  "insertedId" : ObjectId("6131e637afdce614530e9108")
+    Title: "The Godfather",
+    Description: "The Godfather','A film genre inspired by and analogous to the crime fiction literary genre. Films of this genre generally involve various aspects of crime and its detection",
+    Genre: {
+        Name: "Crime", 
+        Description: "Action film is a film genre in which the protagonist or protagonists are thrust into a series of events that typically include violence, extended fighting, physical feats, rescues and frantic chases"       
+    },
+    Director: {
+      Name: "Francis Ford Coppola",
+      Bio: "An American film director, producer and screenwriter",
+      Born: "1939"
+    },
+    ImagePath: "https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_UY1200_CR107,0,630,1200_AL_.jpg",
+    Featured: "true"
+  }
+  db.movies.insertOne(movie2)
+
+
+let movie3 = {
+"insertedId" : ObjectId("6131e68fafdce614530e910b")
+    Title: "The Godfather: Part II",
+    Description: "A film genre inspired by and analogous to the crime fiction literary genre. Films of this genre generally involve various aspects of crime and its detection",
+    Genre: {
+        Name: "Crime",
+        Description: "A film genre inspired by and analogous to the crime fiction literary genre. Films of this genre generally involve various aspects of crime and its detection"
+    },
+     Director: {
+      Name: "Francis Ford Coppola",
+      Bio: "An American film director, producer and screenwriter",
+      Born: "1939"
+    },
+    ImagePath: "https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_UY1200_CR107,0,630,1200_AL_.jpg",
+    Featured: "true"
+  }
+  db.movies.insertOne(movie3)
+  
+
+
+
+  let movie4 = {
+  "insertedId" : ObjectId("6131e6a5afdce614530e910c")
+    Title: "Pulp Fiction",
+    Description: "Comedy may be divided into multiple genres based on the source of humor, the method of delivery, and the context in which it is delivered",
+    Genre: {
+      Name: "Comedy",
+      Description: "Comedy is a genre of film in which the main emphasis is on humor. These films are designed to make the audience laugh through amusement and most often work by exaggerating characteristics for humorous effect"
+    },
+      Director: {
+      Name: "Quentin Tarantino",
+      Bio: "An American film director, screenwriter, producer, author, and actor",
+      Born: "1963"
+    },
+    ImagePath: "https://3kek03dv5mw2mgjkf3tvnm31-wpengine.netdna-ssl.com/wp-content/uploads/2021/05/Pulp_Fiction.jpeg",
+    Featured: "true"
+   }
+  db.movies.insertOne(movie4)
+
+
+ let movie5 = {
+ "insertedId" : ObjectId("6131e6c5afdce614530e910d")
+    Title: "The Good, the Bad and the Ugly",
+    Description: "Western films as those set in the American West that embody the spirit, the struggle, and the demise of the new frontier",
+    Genre: {
+      Name: "Western",
+      Description: "Western films as those set in the American West that embody the spirit, the struggle, and the demise of the new frontier"
+    },
+    Director: {
+      Name: "Sergio Leone",
+      Bio: "An Italian film director, producer and screenwriter, credited as the creator of the Spaghetti Western genre",
+      Born: "1929"
+    },
+    ImagePath: "https://i.ytimg.com/vi/gcFH2Y7bdmk/movieposter_en.jpg",
+    Featured: "true"
+   }
+  db.movies.insertOne(movie5)
+
+
+ let movie6 = {
+ "insertedId" : ObjectId("6131e6d8afdce614530e910e")
+    Title: "Equalizer",
+    Description: "The film focuses on a former U.S. Marine turned DIA intelligence officer who reluctantly returns to action to protect a teenage prostitute from members of the Russian mafia",
+    Genre: {
+      Name: "Action",
+      Description: "A film genre in which the protagonist or protagonists are thrust into a series of events"
+    },
+    Director: {
+    Name:"Antoine Fuqua",
+    Bio: "Antoine Fuqua is an American filmmaker and comic artist. He was originally known for directing music videos for Toni Braxton, Coolio, Stevie Wonder and Prince including the music video for Gangsta Paradise",
+    Born: "1966"
+  },
+    ImagePath: "https://m.media-amazon.com/images/M/MV5BMTQ2MzE2NTk0NF5BMl5BanBnXkFtZTgwOTM3NTk1MjE@._V1_UX67_CR0,0,67,98_AL_.jpg",
+    Featured: "true"
+   }
+  db.movies.insertOne(movie6)
+
+
+
+ let movie7 = {
+ "insertedId" : ObjectId("6131e6edafdce614530e910f")
+    Title: "Training Day",
+    Description: "TTwo LAPD narcotics officers over a 24-hour period in the gang-ridden neighborhoods of Westlake, Echo Park and South Central Los Angeles",
+    Genre: {
+      Name: "Action",
+      Description: "A film genre in which the protagonist or protagonists are thrust into a series of events"
+    },
+    Director: {
+    Name:"Antoine Fuqua",
+    Bio: "Antoine Fuqua is an American filmmaker and comic artist. He was originally known for directing music videos for Toni Braxton, Coolio, Stevie Wonder and Prince including the music video for Gangsta Paradise",
+    Born: "1966"
+  },
+    ImagePath: "https://upload.wikimedia.org/wikipedia/en/b/b3/Training_Day_Poster.jpg",
+    Featured: "true"
+   }
+  db.movies.insertOne(movie7)
+
+
+  let movie8 = {
+  "insertedId" : ObjectId("6131e701afdce614530e9110")
+    Title: "Olympus Has Fallen",
+    Description: "Two LAPD narcotics officers over a 24-hour period in the gang-ridden neighborhoods of Westlake, Echo Park and South Central Los Angeles",
+    Genre: {
+      Name: "Action",
+      Description: "A film genre in which the protagonist or protagonists are thrust into a series of events"
+    },
+    Director: {
+    Name:"Antoine Fuqua",
+    Bio: "Antoine Fuqua is an American filmmaker and comic artist. He was originally known for directing music videos for Toni Braxton, Coolio, Stevie Wonder and Prince including the music video for Gangsta Paradise",
+    Born: "1966"
+  },
+    ImagePath: "https://upload.wikimedia.org/wikipedia/en/b/bf/Olympus_Has_Fallen_poster.jpg",
+    Featured: "true"
+   }
+  db.movies.insertOne(movie8)
+
+
+
+  let movie9 = {
+  "insertedId" : ObjectId("6131e716afdce614530e9111")
+    Title: "Inception",
+    Description: "The film stars Leonardo DiCaprio as a professional thief who steals information by infiltrating the subconscious of his targets",
+    Genre: {
+      Name: "Action",
+      Description: "A film genre in which the protagonist or protagonists are thrust into a series of events"
+    },
+    Director: {
+    Name:"Christopher Nolan",
+    Bio: "British film director and writer acclaimed for his noirish visual aesthetic and unconventional, often highly conceptual narratives",
+    Born: "1970"
+  },
+    ImagePath: "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_UX67_CR0,0,67,98_AL_.jpg",
+    Featured: "true"
+   }
+  db.movies.insertOne(movie9)
+
+
+
+  let movie10 = {
+  "insertedId" : ObjectId("6131e729afdce614530e9112")
+    Title: "John Wick",
+    Description: "The story focuses on John Wick (Reeves) searching for the men who broke into his home, stole his vintage car and killed his puppy, which was a last gift to him from his recently deceased wife",
+    Genre: {
+      Name: "Action",
+      Description: "A film genre in which the protagonist or protagonists are thrust into a series of events"
+    },
+    Director: {
+    Name:"Chad Stahelski",
+    Bio: "Chad Stahelski is an American stuntman and film director. He is known for directing 2014 film John Wick along with David Leitch, and for doubling Brandon Lee after the fatal accident involving Lee at the set of The Crow (1994)",
+    Born: "1968"
+  },
+    ImagePath: "https://static.wikia.nocookie.net/john-wick8561/images/a/a1/John_Wick_Poster_001.jpg/revision/latest/scale-to-width-down/666?cb=20161128160702",
+    Featured: "true"
+   }
+  db.movies.insertOne(movie10)
+
+  */
+
+
+let user1 = {
+    Username: "Peter",
+    Password: "password1",
+    Email: "peter@gmail.com",
+    Birthday: "2000-01-13",
+    FavoriteMovies: [ObjectId("6131e6d8afdce614530e910e")],
+  }
+  db.users.insertOne(user1)
+  "insertedId" : ObjectId("6131e8d0afdce614530e9113")
+
+
+
+  let user2 = {
+    Username: "Theo",
+    Password: "password2",
+    Email: "theo@gmail.com",
+    Birthday: "2001-04-23",
+    FavoriteMovies: [ObjectId("6131e6d8afdce614530e910e")],
+  }
+  db.users.insertOne(user2)
+  "insertedId" : ObjectId("6131e8e9afdce614530e9114")
+ 
+
+
+  let user3 = {
+    Username: "Fredrick",
+    Password: "password3",
+    Email: "fredrick@gmail.com",
+    Birthday: "1998-11-03",
+    FavoriteMovies: [ObjectId("6131e6d8afdce614530e910e")],
+  }
+  db.users.insertOne(user3)
+  "insertedId" : ObjectId("6131e8fdafdce614530e9115")
+
+
+  let user4 = {
+    Username: "Kenedy",
+    Password: "password1",
+    Email: "kenedy@gmail.com",
+    Birthday: "1985-07-27",
+    FavoriteMovies: [ObjectId("6131e6d8afdce614530e910e")],
+  }
+  db.users.insertOne(user4)
+  "insertedId" : ObjectId("6131e918afdce614530e9116")
+
+
+  let user5 = {
+    Username: "Chris",
+    Password: "password5",
+    Email: "chris@gmail.com",
+    Birthday: "1992-01-13",
+    FavoriteMovies: [ObjectId("6131e6d8afdce614530e910e")],
+  }
+  db.users.insertOne(user5)
+  "insertedId" : ObjectId("6131e936afdce614530e9117")
+
+    User6
+    "Username": "James",
+    "Password": "password5",
+    "Email": "james@gmail.com",
+    "Birthday": "1990-04-13T00:00:00.000Z",
+    "FavoriteMovies": [],
+    "_id": "6132538c016ffc275cbe9810",
+    "__v": 0
+
+
+
+
+  //read all the movies from the “Movies” collection that match a certain name
+db.movies.find({ Title: "John Wick" });
+
+//read all the movies in the “Movies” collection that have a certain genre
+db.movies.find({ "Genre.Name": "Action" });
+
+//read all the documents that contain both a certain genre AND a certain director
+db.movies.find({ "Genre.Name": "Action", "Director.Name": "Chad Stahelski" });
+
+//update the description of a particular movie
+db.movies.update(
+  { _id: ObjectId("612fdcd9bfe796ca459fbe40") },
+  {
+    $set: {
+      Description:
+        "Two LAPD narcotics officers patrols over a 24-hour period in the gang-ridden neighborhoods of Westlake, Los Angeles",
+    },
+  }
+);
+//update the bio of a certain director of multiple movies
+db.movies.update(
+  { Director: Name("Antoine Fuqua") },
+  {
+    $set: {
+      Bio: "Antoine Fuqua is an American filmmaker and comic artist. He directed music videos for Toni Braxton, Coolio, Stevie Wonder and Prince. He also directed the music video for Gangsta Paradise",
+    },
+  }
+);
+
+//add a certain movie to a particular user’s list of favorites movie6 and 2 added
+db.users.update(
+  { Username: "Peter" },
+  { $push: { FavoriteMovies: ObjectId("6131e637afdce614530e9108") } }
+);
+
+
+//add a certain movie to a particular user’s list of favorites
+db.users.update(
+  { Username: "Theo" },
+  { $push: { FavoriteMovies: ObjectId("6131e615afdce614530e9107") } }
+);
+Movie 6 and 1 added to Theo
+
+//add a certain movie to a particular user’s list of favorites
+db.users.update(
+  { Username: "Fredrick" },
+  { $push: { FavoriteMovies: ObjectId("6131e68fafdce614530e910b") } }
+);
+Movie 6 and 3 added to fredrick
+
+//add a certain movie to a particular user’s list of favorites''
+db.users.update(
+  { _id: ObjectId("6131e918afdce614530e9116") },
+  { $push: { FavoriteMovies: ObjectId("6131e6a5afdce614530e910c") } }
+);
+Movie 6 and 4 added to Kenedy
+
+
+//delete a certain user, by username
+db.users.remove({ Username: "Chris" });
+
+//read entire collection again
+db.movies.find({});
+db.users.find({});
+
+
+
+
+mongoexport -d myFlix_AppDB -c moviess -o name_of_file.json
+
+  
+
+
+
+
+
+
 
