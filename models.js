@@ -1,5 +1,9 @@
 const mongoose = require("mongoose");
 
+//to hash users passwords
+const bcrypt = require('bcrypt');
+
+// Movie Schema
 let movieSchema = mongoose.Schema({
   Title: { type: String, required: true },
   Desription: { type: String, required: true },
@@ -16,6 +20,7 @@ let movieSchema = mongoose.Schema({
   Featured: Boolean,
 });
 
+ // User Schema 
 let userSchema = mongoose.Schema({
   Username: { type: String, required: true },
   Password: { type: String, required: true },
@@ -23,6 +28,16 @@ let userSchema = mongoose.Schema({
   Birthday: Date,
   FavoriteMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: "Movie" }],
 });
+
+// Actual hashing of submitted passwords
+userSchema.statics.hashPassword = (password) => {
+    return bcrypt.hashSync(password, 10);
+};
+
+//Compares submitted hashed passwords with the hashed passwords stored in database.
+userSchema.methods.validatePassword = function(password) {
+    return bcrypt.compareSync(password, this.Password);
+};
 
 // Genre Schema
 let genreSchema = mongoose.Schema({

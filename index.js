@@ -1,5 +1,15 @@
+const express = require("express");
+(morgan = require("morgan")),
+  (bodyParser = require("body-parser")),
+  (uuid = require("uuid"));
+//methodOverride = require('method-override');
+
 const mongoose = require("mongoose");
 const Models = require("./models.js");
+
+const cors = require("cors");
+
+const { check, validationResult } = require('express-validator');
 
 // const Movies = Models.Movie;
 const Movies = Models.Movie;
@@ -13,13 +23,8 @@ mongoose.connect("mongodb://localhost:27017/myFlix_AppDB", {
   useUnifiedTopology: true,
 });
 
-const express = require("express");
-(morgan = require("morgan")),
-  (bodyParser = require("body-parser")),
-  (uuid = require("uuid"));
-//methodOverride = require('method-override');
-
 const app = express();
+app.use(cors());
 
 const myLogger = (req, res, next) => {
   console.log("Request URL: " + req.url);
@@ -102,13 +107,32 @@ app.get("/users/:Username", passport.authenticate('jwt', { session: false }), (r
 });
 
 //Add a user
-app.post("/users", (req, res) => {
-  Users.findOne({ Username: req.body.Username })
+app.post('/users',
+// Validation logic here for request
+  //you can either use a chain of methods like .not().isEmpty()
+  //which means "opposite of isEmpty" in plain english "is not empty"
+  //or use .isLength({min: 5}) which means
+  //minimum value of 5 characters are only allowed
+  [
+    check('Username', 'Username is required').isLength({min: 5}),
+    check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+    check('Password', 'Password is required').not().isEmpty(),
+    check('Email', 'Email does not appear to be valid').isEmail()
+  ],
+(req, res) => {
+  // check the validation object for errors
+  let errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+    }
+  let hashedPassword = Users.hashPassword(req.body.Password);
+  Users.findOne({ Username: req.body.Username }) // Search to see if a user with the requested username already exists
     .then((user) => {
       if (user) {
+        //If the user is found, send a response that it already exists
         return res.status(400).send(req.body.Username + "already exists");
       } else {
-        Users.create({
+        Users.create({ 
           Username: req.body.Username,
           Password: req.body.Password,
           Email: req.body.Email,
@@ -239,7 +263,7 @@ app.get('/directors/:director', passport.authenticate('jwt', { session: false })
 });
 
 //return a single genre by name to user
-app.get("/movies/genre/:name", passport.authenticate('jwt', { session: false }), (req, res) => {
+app.get('/genre/:name', passport.authenticate('jwt', { session: false }), (req, res) => {
   const { name } = req.params;
   Movies.find({ 'Genre.Name' : name}).then((movies) => {
     res.json(movies);
@@ -248,6 +272,7 @@ app.get("/movies/genre/:name", passport.authenticate('jwt', { session: false }),
       res.status(500).send("Error: " + err);
   })
 });
+
 
 // allow users to deregister
 app.delete("/users/:Username/movies/:MovieID",passport.authenticate('jwt', { session: false }),  (req, res) => {
@@ -272,6 +297,8 @@ app.use((err, req, res, next) => {
   res.status(500).send("Something went wrong!");
 });
 
-app.listen(8081, () => {
-  console.log("Your server is live and listening on port 8081.");
-});
+  // Listen for requests
+  const port = process.env.PORT || 8080;
+  app.listen(port, '0.0.0.0',() => {
+   console.log('Listening on Port ' + port);
+  });
