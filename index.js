@@ -18,10 +18,18 @@ const Genres = Models.Genre;
 const Directors = Models.Director;
 
 //This allows Mongoose to connect to that database so it can perform CRUD operations on the documents it contains from within your REST API
+mongoose.connect( process.env.CONNECTION_URI, { 
+  useNewUrlParser: true, 
+  useUnifiedTopology: true 
+});
+
+
+//This allows Mongoose to connect to that database so it can perform CRUD operations on the documents it contains from within your REST API
+/*
 mongoose.connect("mongodb://localhost:27017/myFlix_AppDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-});
+});*/
 
 const app = express();
 app.use(cors());
