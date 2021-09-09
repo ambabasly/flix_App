@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 //to hash users passwords
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 // Movie Schema
 let movieSchema = mongoose.Schema({
