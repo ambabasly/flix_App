@@ -13,6 +13,7 @@ passport.use(new LocalStrategy({ //This defines your basic HTTP authentication f
 },  (username, password, callback) => {
     console.log(username + '  ' + password);
     Users.findOne({ Username: username }, (error, user) => {
+      console.log(user)
         if (error) {
             console.log(error);
             return callback(error);
