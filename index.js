@@ -17,8 +17,7 @@ const Users = Models.User;
 const Genres = Models.Genre;
 const Directors = Models.Director;
 
-//const uri =
-//  process.env.CONNECTION_URI || "mongodb://localhost:27017/myFlix_AppDB";
+const uri = process.env.CONNECTION_URI || "mongodb://localhost:27017/myFlix_AppDB";
 
 //This allows Mongoose to connect through process.env
 mongoose.connect(uri, {
