@@ -61,7 +61,7 @@ app.get("/", (req, res) => {
 //get all movies
 app.get(
   "/movies",
-  passport.authenticate("jwt", { session: false }),
+  
   (req, res) => {
     Movies.find()
       .then((movies) => {
@@ -93,7 +93,7 @@ app.get(
 // Get all users
 app.get(
   "/users",
-  
+  passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Users.find()
       .then((users) => {
@@ -279,7 +279,7 @@ app.delete(
 //Return a single director by name to user
 app.get(
   "/directors/:director",
-  passport.authenticate("jwt", { session: false }),
+  
   (req, res) => {
     Movies.findOne({
       "Director.Name": { $regex: req.params.director, $options: "i" },
@@ -297,7 +297,7 @@ app.get(
 //return a single genre by name to user
 app.get(
   "/genre/:name",
-  passport.authenticate("jwt", { session: false }),
+  
   (req, res) => {
     const { name } = req.params;
     Movies.find({ "Genre.Name": name })
