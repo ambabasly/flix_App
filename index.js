@@ -17,19 +17,19 @@ const Users = Models.User;
 const Genres = Models.Genre;
 const Directors = Models.Director;
 
-const uri = process.env.CONNECTION_URI || "mongodb://localhost:27017/myFlix_AppDB";
+//const uri = process.env.CONNECTION_URI || "mongodb://localhost:27017/myFlix_AppDB";
 
-//This allows Mongoose to connect through process.env
+/*//This allows Mongoose to connect through process.env
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-});
+});*/
 
-/*//This allows Mongoose to connect locally to the database so it can perform CRUD operations on the documents it contains from within your REST API
+//This allows Mongoose to connect locally to the database so it can perform CRUD operations on the documents it contains from within your REST API
 mongoose.connect("mongodb://localhost:27017/myFlix_AppDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-});*/
+});
 
 const app = express();
 app.use(cors());
@@ -154,7 +154,7 @@ app.post(
         } else {
           Users.create({
             Username: req.body.Username,
-            Password: req.body.Password,
+            Password: hashedPassword,
             Email: req.body.Email,
             Birthday: req.body.Birthday,
           })
