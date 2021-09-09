@@ -24,7 +24,7 @@ mongoose.connect( process.env.CONNECTION_URI, {
 });
 
 
-/*//This allows Mongoose to connect locally
+/*//This allows Mongoose to connect locally to the database so it can perform CRUD operations on the documents it contains from within your REST API
 mongoose.connect("mongodb://localhost:27017/myFlix_AppDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
