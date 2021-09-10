@@ -31,12 +31,12 @@ let userSchema = mongoose.Schema({
 
 // Actual hashing of submitted passwords
 userSchema.statics.hashPassword = (password) => {
-    return bcryptjs.hashSync(password, 10);
+    return bcrypt.hashSync(password, 10);
 };
 
 //Compares submitted hashed passwords with the hashed passwords stored in database.
 userSchema.methods.validatePassword = function(password) {
-    return bcryptjs.compareSync(password, this.Password);
+    return bcrypt.compareSync(password, this.Password);
 };
 
 // Genre Schema
