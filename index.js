@@ -19,17 +19,17 @@ const Directors = Models.Director;
 
 const uri = process.env.CONNECTION_URI || "mongodb://localhost:27017/myFlix_AppDB";
 
-//This allows Mongoose to connect through process.env
+/*//This allows Mongoose to connect through process.env
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-});
+});*/
 
 //This allows Mongoose to connect locally to the database so it can perform CRUD operations on the documents it contains from within your REST API
-/*mongoose.connect("mongodb://localhost:27017/myFlix_AppDB", {
+mongoose.connect("mongodb://localhost:27017/myFlix_AppDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-});*/
+});
 
 const app = express();
 app.use(cors());
@@ -55,7 +55,7 @@ require("./passport");
 
 // Welcome message
 app.get("/", (req, res) => {
-  res.send("Welcome to myFlixApp");
+  res.send("Welcome to myFlixApp Database");
 });
 
 //get all movies
@@ -81,6 +81,41 @@ app.get(
     Movies.findOne({ Title: req.params.Title })
       .then((movie) => {
         res.json(movie);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      });
+  }
+);
+
+//Return a single director by name to user
+app.get(
+  "/directors/:director",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Movies.findOne({
+      "Director.Name": { $regex: req.params.director, $options: "i" },
+    })
+      .then((movie) => {
+        res.json(movie.Director);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      });
+  }
+);
+
+//return a single genre by name to user
+app.get(
+  "/genre/:name",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const { name } = req.params;
+    Movies.find({ "Genre.Name": name })
+      .then((movies) => {
+        res.json(movies);
       })
       .catch((err) => {
         console.error(err);
@@ -123,7 +158,7 @@ app.get(
 
 //Add a user
 app.post(
-  "/users",
+  "/users/registration",
   // Validation logic here for request
   //you can either use a chain of methods like .not().isEmpty()
   //which means "opposite of isEmpty" in plain english "is not empty"
@@ -173,29 +208,6 @@ app.post(
   }
 );
 
-// Add a movie to a user's list of favorites
-app.post(
-  "/users/:Username/movies/:MovieID",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    Users.findOneAndUpdate(
-      { Username: req.params.Username },
-      {
-        $push: { FavoriteMovies: req.params.MovieID },
-      },
-      { new: true }, // This line makes sure that the updated document is returned
-      (err, updatedUser) => {
-        if (err) {
-          console.error(err);
-          res.status(500).send("Error: " + err);
-        } else {
-          res.json(updatedUser);
-        }
-      }
-    );
-  }
-);
-
 // Update a user's info, by username
 app.put(
   "/users/:Username",
@@ -210,6 +222,29 @@ app.put(
           Email: req.body.Email,
           Birthday: req.body.Birthday,
         },
+      },
+      { new: true }, // This line makes sure that the updated document is returned
+      (err, updatedUser) => {
+        if (err) {
+          console.error(err);
+          res.status(500).send("Error: " + err);
+        } else {
+          res.json(updatedUser);
+        }
+      }
+    );
+  }
+);
+
+// Add a movie to a user's list of favorites
+app.post(
+  "/users/:Username/movies/:MovieID",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Users.findOneAndUpdate(
+      { Username: req.params.Username },
+      {
+        $push: { FavoriteMovies: req.params.MovieID },
       },
       { new: true }, // This line makes sure that the updated document is returned
       (err, updatedUser) => {
@@ -272,41 +307,6 @@ app.delete(
         }
       }
     );
-  }
-);
-
-//Return a single director by name to user
-app.get(
-  "/directors/:director",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    Movies.findOne({
-      "Director.Name": { $regex: req.params.director, $options: "i" },
-    })
-      .then((movie) => {
-        res.json(movie.Director);
-      })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).send("Error: " + err);
-      });
-  }
-);
-
-//return a single genre by name to user
-app.get(
-  "/genre/:name",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    const { name } = req.params;
-    Movies.find({ "Genre.Name": name })
-      .then((movies) => {
-        res.json(movies);
-      })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).send("Error: " + err);
-      });
   }
 );
 
