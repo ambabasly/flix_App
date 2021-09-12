@@ -14,8 +14,6 @@ const { check, validationResult } = require("express-validator");
 // const Movies = Models.Movie;
 const Movies = Models.Movie;
 const Users = Models.User;
-const Genres = Models.Genre;
-const Directors = Models.Director;
 
 const uri = process.env.CONNECTION_URI || "mongodb://localhost:27017/myFlix_AppDB";
 
@@ -89,19 +87,6 @@ app.get(
   }
 );
 
-// Get all Directors 
-app.get("/directors",passport.authenticate("jwt",{
-  session:false
-}), (req, res) => {
-  Directors.find()
-    .then((director) => {
-      res.status(200).json(director);
-    }).catch((err) => {
-      console.error(err);
-      res.status(500).sned('Error: ' + err);
-    });
-});
-
 //Return a single director by name to user
 app.get(
   "/directors/:director",
@@ -119,19 +104,6 @@ app.get(
       });
   }
 );
-
-// Get All Genre 
-app.get("/genre",passport.authenticate("jwt",{
-  session:false
-}), (req, res) => {
-  Genres.find()
-    .then((genre) => {
-      res.status(200).json(genre);
-    }).catch((err) => {
-      console.error(err);
-      res.status(500).sned('Error: ' + err);
-    });
-});
 
 //return a single genre by name to user
 app.get(
