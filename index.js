@@ -17,17 +17,17 @@ const Users = Models.User;
 
 const uri = process.env.CONNECTION_URI || "mongodb://localhost:27017/myFlix_AppDB";
 
-//This allows Mongoose to connect through process.env
+/*//This allows Mongoose to connect through process.env
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-});
+});*/
 
 //This allows Mongoose to connect locally to the database so it can perform CRUD operations on the documents it contains from within your REST API
-/*mongoose.connect("mongodb://localhost:27017/myFlix_AppDB", {
+mongoose.connect("mongodb://localhost:27017/myFlix_AppDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-});*/
+});
 
 const app = express();
 app.use(cors());
@@ -36,11 +36,9 @@ const myLogger = (req, res, next) => {
   console.log("Request URL: " + req.url);
   next();
 };
+
 // Logging middleware
 app.use(morgan("common"));
-
-// For the sending of static files
-app.use("/documentation", express.static("public"));
 
 // Using body-parser
 app.use(bodyParser.json());
@@ -50,6 +48,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 let auth = require("./auth")(app);
 const passport = require("passport");
 require("./passport");
+
 
 // Welcome message
 app.get("/", (req, res) => {
@@ -328,6 +327,12 @@ app.delete(
     );
   }
 );
+
+// For the sending of static files
+app.use( express.static("public"));
+app.get('/documentation', (req, res) => {                  
+  res.sendFile('public/documentation.html', { root: __dirname });
+});
 
 //Error handling
 app.use((err, req, res, next) => {
