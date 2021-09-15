@@ -17,17 +17,17 @@ const Users = Models.User;
 
 const uri = process.env.CONNECTION_URI || "mongodb://localhost:27017/myFlix_AppDB";
 
-/*//This allows Mongoose to connect through process.env
+//This allows Mongoose to connect through process.env
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-});*/
+});
 
 //This allows Mongoose to connect locally to the database so it can perform CRUD operations on the documents it contains from within your REST API
-mongoose.connect("mongodb://localhost:27017/myFlix_AppDB", {
+/*mongoose.connect("mongodb://localhost:27017/myFlix_AppDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-});
+});*/
 
 const app = express();
 app.use(cors());
@@ -327,9 +327,7 @@ app.delete(
 
 // For the sending of static files
 app.use( express.static("public"));
-app.get('/documentation', (req, res) => {                  
-  res.sendFile('public/documentation.html', { root: __dirname });
-});
+
 
 //Error handling
 app.use((err, req, res, next) => {
@@ -343,6 +341,3 @@ app.listen(port, "0.0.0.0", () => {
   console.log("Listening on Port " + port);
 });
 
-/*app.listen(8081, () => {
-    console.log("Your server is live and listening on port 8081.");
-  });*/
