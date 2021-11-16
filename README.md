@@ -1,20 +1,23 @@
 # Project Name
+
 **flix_App**
 
 ## Built With
+
 - Javascript
-- Node.js 
+- Node.js
 - Express
 - MongoDB
-- Mongoose  
+- Mongoose
 
 - <img width="1430" alt="Screenshot 2021-10-13 at 00 06 06" src="https://user-images.githubusercontent.com/88083504/137035571-2eb09b54-5e82-4e91-a252-0788ec17b007.png">
 
 ## Getting Started
+
 **The server-side component of a "movies" web application provides users with access to information about various movies, directors, and genres. Users can create an account, log in, update their personal information, and create a list of their favorite movies..**
 
-
 ### Feature Requirements:
+
 - Return a list of ALL movies to the user.
 - Return data (description, genre, director, image URL, whether it is featured or not) about a single movie by title to the user.
 - Return data about a genre (description) by name/title (e.g. "Thriller")
@@ -26,6 +29,7 @@
 - Allow existing users to log out
 
 ### Technical Requirements:
+
 - The API is a Node.js and Express application.
 - The API uses the REST architecture with URL endpoints corresponding to the data operations listed above.
 - The API uses at least three middleware modules, such as the body-parser package for reading data from requests and morgan for logging.
@@ -42,6 +46,7 @@
 - The API is deployed on Heroku.
 
 ### Dependencies:
+
 - bcrypt
 - body-parser
 - cors
@@ -56,7 +61,3 @@
 - passportjtw
 - passport-local
 - uuid
-
-
-
-
