@@ -1,8 +1,7 @@
 const express = require("express");
 (morgan = require("morgan")),
   (bodyParser = require("body-parser")),
-  (uuid = require("uuid"));
-//methodOverride = require('method-override');
+  (uuid = require("uuid")); //methodOverride = require('method-override');
 
 const mongoose = require("mongoose");
 const Models = require("./models.js");
@@ -11,13 +10,17 @@ const cors = require("cors");
 
 const { check, validationResult } = require("express-validator");
 
-// const Movies = Models.Movie;
-const Movies = Models.Movie;
+const Movies = Models.Movie; // const Movies = Models.Movie;
 const Users = Models.User;
 
-const uri = process.env.CONNECTION_URI || "mongodb://localhost:27017/myFlix_AppDB";
+const uri =
+  process.env.CONNECTION_URI || "mongodb://localhost:27017/myFlix_AppDB";
 
-//This allows Mongoose to connect through process.env
+// This allows Mongoose to connect through process.env, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+//   useFindAndModify: false,
+// });
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -37,41 +40,50 @@ const myLogger = (req, res, next) => {
   next();
 };
 
-// Logging middleware
-app.use(morgan("common"));
+app.use(morgan("common")); // Logging middleware
 
-// Using body-parser
-app.use(bodyParser.json());
+app.use(bodyParser.json()); // Using body-parser
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Importing auth.js and passport
-let auth = require("./auth")(app);
+let auth = require("./auth")(app); // Importing auth.js and passport
 const passport = require("passport");
 require("./passport");
 
-
-// Welcome message
+/**
+ * get:
+ * summary: welcome page
+ * description: send you to the landing page
+ */
 app.get("/", (req, res) => {
+  // Welcome message
   res.send("Welcome to myFlixApp Database");
 });
 
-//get all movies
+/**
+ *@function get All Movies
+ *@description get All movies from the database
+ *@returns {JSON} JSON object of all movies, each of which contain the movie's title, description, director, genre, image url, and featured status.
+ */
 app.get(
-  "/movies", 
-passport.authenticate("jwt", { session: false }),
-(req, res) => {
-  Movies.find()
-    .then(movies => {
-      res.status(201).json(movies);
-    })
-    .catch(err => {
-      console.error(err);
-      res.status(500).send("Error: " + err);
-    });
-}
+  "/movies",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Movies.find()
+      .then((movies) => {
+        res.status(201).json(movies);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      });
+  }
 );
 
-//get movie by title
+/**
+ * @function getMovieByTitle
+ * @description Gets the data about a single movie, by title
+ * @returns {JSON} JSON object the movie that contains title, description, director, genre, image url, reviews and featured status.
+ */
 app.get(
   "/movies/:Title",
   passport.authenticate("jwt", { session: false }),
@@ -86,8 +98,11 @@ app.get(
       });
   }
 );
-
-//Return a single director by name to user
+/**
+ * @getDirector
+ * @description Gets the data about a director
+ * @returns {JSON} JSON object with the name and bio data of the director
+ */
 app.get(
   "/directors/:director",
   passport.authenticate("jwt", { session: false }),
@@ -105,7 +120,11 @@ app.get(
   }
 );
 
-//return a single genre by name to user
+/**
+ * @function getGenre
+ * @description Gets the description of a genre by Genres Name
+ * @returns {JSON} JSON object the genre and description.
+ */
 app.get(
   "/genre/:name",
   passport.authenticate("jwt", { session: false }),
@@ -122,7 +141,12 @@ app.get(
   }
 );
 
-// Get all users
+/**
+ * @function getUsers
+ * @description Gets the users list
+ * @returns {JSON} JSON object of all users, each of which contain username, email, id, favorite movies, and birthday.
+ *
+ */
 app.get(
   "/users",
   passport.authenticate("jwt", { session: false }),
@@ -138,7 +162,11 @@ app.get(
   }
 );
 
-// Get a user by username
+/**
+ * @function GetsUserByName
+ * @description get user by username
+ * @returns {JSON} JSON object of all users, each of which contain username, email, id, favorite movies, and birthday.
+ */
 app.get(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
@@ -154,7 +182,21 @@ app.get(
   }
 );
 
-//Add a user
+/**
+ * @function registerUser
+ * @description Register/Add a user
+ * @augments userData
+ * @returns {JSON} JSON object of all users, each of which contain username, email, id, favorite movies, and birthday.
+ */
+
+/*expect JSON in this format 
+  {
+    ID: Integer,
+    Username: String, 
+    Password: String,
+    Email: String, 
+    Birthday: Date}
+ */
 app.post(
   "/users/registration",
   // Validation logic here for request
@@ -206,7 +248,22 @@ app.post(
   }
 );
 
-// Update a user's info, by username
+/**
+ * * @function updateUserData
+ * @description Update the username
+ * @returns {JSON} JSON object of all users, each of which contain username, email, id, favorite movies, and birthday.
+ * */
+
+/* We’ll expect JSON in this format
+{
+  Username: String,
+  (required)
+  Password: String,
+  (required)
+  Email: String,
+  (required)
+  Birthday: Date
+}*/
 app.put(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
@@ -234,7 +291,12 @@ app.put(
   }
 );
 
-// Add a movie to a user's list of favorites
+/**
+ *
+ * @function sendReview
+ * @description Add a movie to a user's list of favorites
+ * @returns {JSON} JSON object with review, reviewId, userId and rating
+ */
 app.post(
   "/users/:Username/movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
@@ -265,7 +327,11 @@ app.delete(
   }
 );
 
-// Delete a user by username
+/**
+ * @function unsubscribe
+ * @description delete user by username
+ * @returns message "user was deleted" or "user was not found"
+ */
 app.delete(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
@@ -285,7 +351,11 @@ app.delete(
   }
 );
 
-// Delete a movie from the favorite list of a user
+/**
+ * @function unsubscribe
+ * @description Delete a movie from the favorite list of a user
+ * @returns message "user was deleted" or "user was not found"
+ */
 app.delete(
   "/users/:Name/movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
@@ -308,7 +378,11 @@ app.delete(
   }
 );
 
-// allow users to deregister
+/**
+ * @function unsubscribe
+ * @description allow users to deregister
+ * @returns message "user was deleted" or "user was not found"
+ */
 app.delete(
   "/users/:Username/movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
@@ -330,8 +404,7 @@ app.delete(
 );
 
 // For the sending of static files
-app.use( express.static("public"));
-
+app.use(express.static("public"));
 
 //Error handling
 app.use((err, req, res, next) => {
@@ -344,4 +417,3 @@ const port = process.env.PORT || 8080;
 app.listen(port, "0.0.0.0", () => {
   console.log("Listening on Port " + port);
 });
-
