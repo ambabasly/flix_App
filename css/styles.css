@@ -15,8 +15,8 @@
 }
 
 .table,
-th,
-td {
+.th,
+.td {
   border: 1px solid #000000;
   padding: 5px;
   padding-left: 10px;
@@ -40,4 +40,9 @@ td {
 
 .tr:hover {
   opacity: 0.6;
+}
+
+.endpoint-table .Description endpoints {
+  text-align: center;
+  color: #000000;
 }
