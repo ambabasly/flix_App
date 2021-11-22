@@ -10,7 +10,7 @@
 - MongoDB
 - Mongoose
 
-- <img width="1430" alt="Screenshot 2021-10-13 at 00 06 06" src="https://user-images.githubusercontent.com/88083504/137035571-2eb09b54-5e82-4e91-a252-0788ec17b007.png">
+- <img width="1436" alt="Screenshot 2021-11-16 at 23 40 49" src="https://user-images.githubusercontent.com/88083504/142077947-f0ae59ab-31fc-4bad-9c9a-325f4d36788f.png">
 
 ## Getting Started
 
