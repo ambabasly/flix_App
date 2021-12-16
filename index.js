@@ -338,8 +338,8 @@ app.post(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Users.findOneAndUpdate(
-      { Username: req.params.Username },
-      { $pull: { FavoriteMovies: req.params.MovieID } },
+      { Username: req.params.username },
+      { $pull: { FavoriteMovies: req.params.movieID } },
       { new: true }, // This line makes sure that the updated document is returned
       (err, updatedUser) => {
         if (err) {
