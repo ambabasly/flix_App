@@ -347,8 +347,6 @@ let user1 = {
     "__v": 0
 
 
-
-
   //read all the movies from the “Movies” collection that match a certain name
 db.movies.find({ Title: "John Wick" });
 

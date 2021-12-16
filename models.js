@@ -1,9 +1,10 @@
+// Translating between your Node.js application and your MongoDB database layer.
 const mongoose = require("mongoose");
 
 //to hash users passwords
 const bcrypt = require("bcrypt");
 
-// Movie Schema
+// define a mongose schema
 let movieSchema = mongoose.Schema({
   Title: { type: String, required: true },
   Desription: { type: String, required: true },
@@ -29,16 +30,17 @@ let userSchema = mongoose.Schema({
   FavoriteMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: "Movie" }],
 });
 
-// Actual hashing of submitted passwords
+// this method hashses a new user's password
 userSchema.statics.hashPassword = (password) => {
   return bcrypt.hashSync(password, 10);
 };
 
-//Compares submitted hashed passwords with the hashed passwords stored in database.
+//this method hashes a password on login to compare to the stored hashed password
 userSchema.methods.validatePassword = function (password) {
   return bcrypt.compareSync(password, this.Password);
 };
 
+// Create the models that will be used in the index.js to interact with the database
 let Movie = mongoose.model("Movie", movieSchema);
 let User = mongoose.model("User", userSchema);
 

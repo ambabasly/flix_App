@@ -3,7 +3,7 @@ const passport = require("passport"),
   Models = require("./models.js"),
   passportJWT = require("passport-jwt");
 
-let Users = Models.User, //You have User and not Users in your models.js. Corret this.
+let Users = Models.User, 
   JWTStrategy = passportJWT.Strategy,
   ExtractJWT = passportJWT.ExtractJwt;
 
@@ -18,18 +18,19 @@ passport.use(
       console.log(username + "  " + password);
       Users.findOne({ Username: username }, (error, user) => {
         console.log(user);
+        // if error occurs, it is passed to callback
         if (error) {
           console.log(error);
           return callback(error);
         }
-
+         // if username can't be found within database, error message is passed to callback
         if (!user) {
           console.log("incorrect username");
           return callback(null, false, {
             message: "Incorrect username or password.",
           });
         }
-
+        // to validate any password a user enters
         if (!user.validatePassword(password)) {
           console.log("incorrect password");
           return callback(null, false, { message: "Incorrect password." });
@@ -42,9 +43,12 @@ passport.use(
   )
 );
 
+// setting up JWTStrategy
 passport.use(
   new JWTStrategy(
     {
+      // JWT is extracted from header of HTTP request (bearer token)
+      // secret key to verify signature of JWT (verifies client's identity and that the JWT hasn't been altered)
       jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
       secretOrKey: "your_jwt_secret", //key to verify the signature of the JWT
     },

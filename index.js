@@ -1,52 +1,79 @@
+// Importing express to package
 const express = require("express");
+
 (morgan = require("morgan")),
+  // middleware that lets you read from the body of HTTP request, inorder to get add info not stored in the request URL
   (bodyParser = require("body-parser")),
-  (uuid = require("uuid")); //methodOverride = require('method-override');
+  // to assign a unique ID
+  (uuid = require("uuid")); 
 
-const mongoose = require("mongoose");
-const Models = require("./models.js");
-
-const cors = require("cors");
+const methodOverride = require('method-override');
 
 const { check, validationResult } = require("express-validator");
 
-const Movies = Models.Movie; // const Movies = Models.Movie;
+// import mongoose and our models
+const mongoose = require("mongoose");
+const Models = require("./models.js");
+
+// allowing you to controll which domain has access to your API
+const cors = require("cors");
+
+
+// references to the models
+const Movies = Models.Movie; 
 const Users = Models.User;
 
 const uri =
   process.env.CONNECTION_URI || "mongodb://localhost:27017/myFlix_AppDB";
 
-// This allows Mongoose to connect through process.env, {
+  
+ // This allows Mongoose to connect through process.env, {
 //   useNewUrlParser: true,
 //   useUnifiedTopology: true,
 //   useFindAndModify: false,
-// });
+// }); 
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
 
-/*//This allows Mongoose to connect locally to the database so it can perform CRUD operations on the documents it contains from within your REST API
+/* //This allows Mongoose to connect locally to the database so it can perform CRUD operations on the documents it contains from within your REST API
 mongoose.connect("mongodb://localhost:27017/myFlix_AppDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });*/
 
-const app = express();
-app.use(cors());
-
-const myLogger = (req, res, next) => {
-  console.log("Request URL: " + req.url);
+// send back the timestamp of the request
+const requestTime = (req, res, next) => {
+  req.requestTime = new Date();
   next();
 };
+
+app.use(requestTime);
+
+// This declares a variable that encapsulates Express’s functionality
+const app = express();
+
+app.use(cors());
+
+
+// Logging middleware, telling the app to use the middleware funtions for all requests
+app.use(morgan("common")); // here specifies that requests should be logged using Morgan’s “common” format
+
+
 
 app.use(morgan("common")); // Logging middleware
 
 app.use(bodyParser.json()); // Using body-parser
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(methodOverride());
+app.use(bodyParser.urlencoded({ 
+    extended: true 
+  })
+);
 
 let auth = require("./auth")(app); // Importing auth.js and passport
 const passport = require("passport");
+
 require("./passport");
 
 /**
@@ -70,7 +97,7 @@ app.get(
   (req, res) => {
     Movies.find()
       .then((movies) => {
-        res.status(201).json(movies);
+        res.status(200).json(movies);
       })
       .catch((err) => {
         console.error(err);
@@ -153,7 +180,7 @@ app.get(
   (req, res) => {
     Users.find()
       .then((users) => {
-        res.status(201).json(users);
+        res.status(200).json(users);
       })
       .catch((err) => {
         console.error(err);
@@ -298,7 +325,7 @@ app.put(
  * @returns {JSON} JSON object with review, reviewId, userId and rating
  */
 app.post(
-  "/users/:Username/movies/:MovieID",
+  "/users/:username/FavoriteMovies/:movieID",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Users.findOneAndUpdate(
@@ -319,72 +346,13 @@ app.post(
   }
 );
 
-app.delete(
-  "/users/:ID/deactivate",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    res.send("Successful DELETE request removing user");
-  }
-);
-
 /**
  * @function unsubscribe
- * @description delete user by username
+ * @description Allow users to remove a movie from their list of favorites
  * @returns message "user was deleted" or "user was not found"
  */
-app.delete(
-  "/users/:Username",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    Users.findOneAndRemove({ Username: req.params.Username })
-      .then((user) => {
-        if (!user) {
-          res.status(400).send(req.params.Username + " was not found");
-        } else {
-          res.status(200).send(req.params.Username + " was deleted.");
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).send("Error: " + err);
-      });
-  }
-);
-
-/**
- * @function unsubscribe
- * @description Delete a movie from the favorite list of a user
- * @returns message "user was deleted" or "user was not found"
- */
-app.delete(
-  "/users/:Name/movies/:MovieID",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    Users.findOneAndUpdate(
-      { Name: req.params.Name },
-      {
-        $pull: { FavoriteMovies: req.params.MovieID },
-      },
-      { new: true },
-      (err, updatedUser) => {
-        if (err) {
-          console.error(err);
-          res.status(500).send("Error: " + err);
-        } else {
-          res.json(updatedUser);
-        }
-      }
-    );
-  }
-);
-
-/**
- * @function unsubscribe
- * @description allow users to deregister
- * @returns message "user was deleted" or "user was not found"
- */
-app.delete(
-  "/users/:Username/movies/:MovieID",
+ app.delete(
+  "/users/:username/FavoriteMovies/:movieID",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Users.findOneAndUpdate(
@@ -403,8 +371,33 @@ app.delete(
   }
 );
 
+
+/**
+ * @function unsubscribe
+ * @description Allow existing users to deregister
+ * @returns message "user was deleted" or "user was not found"
+ */
+app.delete(
+  "/users/:Username",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Users.findOneAndRemove({ Username: req.params.Username })
+      .then((user) => {
+        if (!user) {
+          res.status(400).send(req.params.Username + " was not found");
+        } else {
+          res.status(200).send(req.params.Username + " was successfully deleted.");
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      });
+  }
+);
+
 // For the sending of static files
-app.use(express.static("public"));
+app.use(express.static("./public"));
 
 //Error handling
 app.use((err, req, res, next) => {
