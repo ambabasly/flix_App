@@ -334,7 +334,7 @@ app.post(
  * @returns message "user was deleted" or "user was not found"
  */
  app.delete(
-  "/users/:username/FavoriteMovies/:movieID",
+  "/users/:username/Movies/:movieID",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Users.findOneAndUpdate(
