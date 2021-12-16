@@ -307,13 +307,13 @@ app.put(
  * @returns {JSON} JSON object with review, reviewId, userId and rating
  */
 app.post(
-  "/users/:Username/FavoriteMovies/:movieID",
+  "/users/:Username/Movies/:movieID",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Users.findOneAndUpdate(
       { Username: req.params.Username },
       {
-        $push: { FavoriteMovies: req.params.MovieID },
+        $push: { FavoriteMovies: req.params.movieID },
       },
       { new: true }, // This line makes sure that the updated document is returned
       (err, updatedUser) => {
