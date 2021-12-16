@@ -7,10 +7,6 @@ const express = require("express");
   // to assign a unique ID
   (uuid = require("uuid")); 
 
-const methodOverride = require('method-override');
-
-const { check, validationResult } = require("express-validator");
-
 // import mongoose and our models
 const mongoose = require("mongoose");
 const Models = require("./models.js");
@@ -18,6 +14,7 @@ const Models = require("./models.js");
 // allowing you to controll which domain has access to your API
 const cors = require("cors");
 
+const { check, validationResult } = require("express-validator");
 
 // references to the models
 const Movies = Models.Movie; 
@@ -26,12 +23,6 @@ const Users = Models.User;
 const uri =
   process.env.CONNECTION_URI || "mongodb://localhost:27017/myFlix_AppDB";
 
-  
- // This allows Mongoose to connect through process.env, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-//   useFindAndModify: false,
-// }); 
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -43,29 +34,20 @@ mongoose.connect("mongodb://localhost:27017/myFlix_AppDB", {
   useUnifiedTopology: true,
 });*/
 
-// send back the timestamp of the request
-const requestTime = (req, res, next) => {
-  req.requestTime = new Date();
-  next();
-};
-
-app.use(requestTime);
-
 // This declares a variable that encapsulates Express’s functionality
 const app = express();
 
 app.use(cors());
 
+const myLogger = (req, res, next) => {
+  console.log("Request URL: " + req.url);
+  next();
+};
 
 // Logging middleware, telling the app to use the middleware funtions for all requests
 app.use(morgan("common")); // here specifies that requests should be logged using Morgan’s “common” format
 
-
-
-app.use(morgan("common")); // Logging middleware
-
 app.use(bodyParser.json()); // Using body-parser
-app.use(methodOverride());
 app.use(bodyParser.urlencoded({ 
     extended: true 
   })
@@ -97,7 +79,7 @@ app.get(
   (req, res) => {
     Movies.find()
       .then((movies) => {
-        res.status(200).json(movies);
+        res.status(201).json(movies);
       })
       .catch((err) => {
         console.error(err);
@@ -180,7 +162,7 @@ app.get(
   (req, res) => {
     Users.find()
       .then((users) => {
-        res.status(200).json(users);
+        res.status(201).json(users);
       })
       .catch((err) => {
         console.error(err);
@@ -325,7 +307,7 @@ app.put(
  * @returns {JSON} JSON object with review, reviewId, userId and rating
  */
 app.post(
-  "/users/:username/FavoriteMovies/:movieID",
+  "/users/:Username/FavoriteMovies/:movieID",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Users.findOneAndUpdate(
