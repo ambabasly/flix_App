@@ -13,6 +13,7 @@ const Models = require("./models.js");
 
 // allowing you to controll which domain has access to your API
 const cors = require("cors");
+app.use(cors());
 
 const { check, validationResult } = require("express-validator");
 
@@ -37,7 +38,6 @@ mongoose.connect("mongodb://localhost:27017/myFlix_AppDB", {
 // This declares a variable that encapsulates Express’s functionality
 const app = express();
 
-app.use(cors());
 
 const myLogger = (req, res, next) => {
   console.log("Request URL: " + req.url);
