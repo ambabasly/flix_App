@@ -1,5 +1,5 @@
 // Translating between your Node.js application and your MongoDB database layer.
-const mongoose = require("mongoose");
+const mongoose = rmoequire("mongoose");
 
 //to hash users passwords
 const bcrypt = require("bcrypt");
