@@ -14,7 +14,6 @@ const Models = require("./models.js");
 // allowing you to controll which domain has access to your API
 const cors = require("cors");
 
-
 const { check, validationResult } = require("express-validator");
 
 // references to the models
