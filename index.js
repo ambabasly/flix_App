@@ -381,7 +381,6 @@ app.delete(
 // For the sending of static files
 app.use(express.static("./public"));
 
-//Error handling
 app.use((err, req, res, next) => {
   console.log(err.stack);
   res.status(500).send("Something went wrong!");
